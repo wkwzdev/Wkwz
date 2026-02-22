@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADR CHEATS</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    font-family:Arial, sans-serif;
+    color:#00ff00;
+    text-align:center;
+    overflow-x:hidden;
+}
+
+/* Fundo animado */
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:radial-gradient(circle at center, #001a00, black);
+    animation:pulse 3s infinite alternate;
+    z-index:-1;
+}
+@keyframes pulse{
+    from{opacity:0.6;}
+    to{opacity:1;}
+}
+
+h1{
+    margin-top:30px;
+    text-shadow:0 0 15px #00ff00;
+    animation:blink 1.5s infinite alternate;
+}
+@keyframes blink{
+    from{opacity:0.6;}
+    to{opacity:1;}
+}
+
+button{
+    width:85%;
+    padding:15px;
+    margin:8px;
+    border-radius:20px;
+    border:2px solid #00ff00;
+    background:#111;
+    color:#00ff00;
+    font-size:16px;
+    transition:0.3s;
+}
+
+button:hover{
+    box-shadow:0 0 20px #00ff00;
+}
+
+button:active{
+    transform:scale(1.08);
+    background:#00ff00;
+    color:black;
+}
+
+.status{
+    margin-top:15px;
+    font-size:18px;
+    text-shadow:0 0 10px #00ff00;
+}
+
+input[type=range]{
+    width:80%;
+    margin-top:10px;
+}
+
+/* Esconder painel */
+.hidden{
+    display:none;
+}
+
+/* Barra de carregamento */
+#loadingBar{
+    width:80%;
+    height:8px;
+    background:#111;
+    margin:10px auto;
+    border-radius:10px;
+    overflow:hidden;
+    display:none;
+}
+#progress{
+    height:100%;
+    width:0%;
+    background:#00ff00;
+    transition:width 3s;
+}
+</style>
+</head>
+
+<body onclick="contarToques()">
+
+<h1>💀 ADR CHEATS 💀</h1>
+
+<div id="painel">
+
+<!-- Botões principais -->
+<button onclick="injetar()">🔥 INJETAR</button>
+<button onclick="ativarModo('Modo Brutal')">🔥 ATIVAR MODO BRUTAL</button>
+<button onclick="ativarModo('Modo Elite')">💀 ATIVAR MODO ELITE</button>
+<button onclick="ativarModo('Precisão Máxima')">🎯 PRECISÃO MÁXIMA</button>
+<button onclick="ativarModo('Boost Extremo')">⚡ BOOST EXTREMO</button>
+
+<!-- Barra de status -->
+<div class="status" id="status">Status: Inativo</div>
+
+<!-- FOV Slider -->
+<div class="fov-container">
+<label>FOV: <span id="fovValue">10</span></label><br>
+<input type="range" min="0" max="100" value="10" oninput="mudarFOV(this.value)">
+</div>
+
+<!-- Barra de carregamento para abrir Free Fire -->
+<div id="loadingBar">
+  <div id="progress"></div>
+</div>
+
+<!-- Abrir Free Fire -->
+<button onclick="abrirFF()">🎮 ABRIR FREE FIRE</button>
+
+</div>
+
+<script>
+let injetado = false;
+let toques = 0;
+
+// INJETAR
+function injetar(){
+    if(injetado) return;
+    let status = document.getElementById("status");
+    status.innerHTML = "Status: Injetando...";
+    setTimeout(()=>{
+        status.innerHTML = "Status: Injetado ✅";
+        injetado = true;
+    },5000);
+}
+
+function resetar(){
+    document.getElementById("status").innerHTML = "Status: Injetar";
+    injetado = false;
+}
+
+// ATIVAR MODOS VISUAIS
+function ativarModo(nome){
+    let status = document.getElementById("status");
+    status.innerHTML = "Ativando " + nome + "...";
+    setTimeout(()=>{
+        status.innerHTML = nome + " ATIVADO ✅";
+    },3000);
+}
+
+// FOV Slider
+function mudarFOV(valor){
+    document.getElementById("fovValue").innerText = valor;
+    resetar();
+}
+
+// Abrir Free Fire com animação
+function animarAbertura(nome, link){
+    let status = document.getElementById("status");
+    let bar = document.getElementById("loadingBar");
+    let progress = document.getElementById("progress");
+
+    status.innerHTML = "Abrindo " + nome + "...";
+    bar.style.display = "block";
+    progress.style.width = "0%";
+
+    setTimeout(()=>{ progress.style.width = "100%"; },50);
+
+    setTimeout(()=>{
+        window.open(link, "_blank");
+        bar.style.display = "none";
+        progress.style.width = "0%";
+        status.innerHTML = "Status: Inativo";
+    },3000);
+}
+
+function abrirFF(){
+    animarAbertura("Free Fire","https://play.google.com/store/apps/details?id=com.dts.freefireth");
+}
+
+// Esconder painel com 3 toques
+function contarToques(){
+    toques++;
+    if(toques >= 3){
+        let painel = document.getElementById("painel");
+        painel.classList.toggle("hidden");
+        toques = 0;
+    }
+}
+</script>
+
+</body>
+</html>
